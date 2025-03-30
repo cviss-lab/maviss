@@ -14,10 +14,12 @@ MAVISS is an open-source Micro Aerial Vehicle (MAV) for precision infrastructure
 
 ```
 maviss/
+ misc/                 # Miscellaneous files
  maviss_description/   # URDF and robot model
  .
  .
  (More to be added)
+ README.md
 ```
 
 ## Status
