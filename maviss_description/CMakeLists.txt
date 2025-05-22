@@ -29,5 +29,11 @@ install(DIRECTORY
         DESTINATION share/${PROJECT_NAME}/
         )
 
+# Install Python module
+install(PROGRAMS
+  	magnetometer_node/magnetometer_node.py
+  	DESTINATION lib/${PROJECT_NAME}
+	)
+
 ament_package()
 

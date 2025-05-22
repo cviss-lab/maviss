@@ -1,0 +1,2 @@
+Invoking command in '/home/amogus/maviss/src/maviss/build/maviss_description': BYOBU_DATE=%Y-%m-%d /usr/bin/cmake /home/amogus/maviss/src/maviss/maviss_description -DCMAKE_INSTALL_PREFIX=/home/amogus/maviss/src/maviss/install/maviss_description
+Invoked command in '/home/amogus/maviss/src/maviss/build/maviss_description' returned '1': BYOBU_DATE=%Y-%m-%d /usr/bin/cmake /home/amogus/maviss/src/maviss/maviss_description -DCMAKE_INSTALL_PREFIX=/home/amogus/maviss/src/maviss/install/maviss_description
