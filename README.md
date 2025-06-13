@@ -35,18 +35,23 @@ maviss/
 
 
 ## Installation
-1. Clone the repository:
+1. Build Livox-SDK2:  
+   Follow the instructions provided in the [Livox-SDK2 guide](https://github.com/Livox-SDK/Livox-SDK2/blob/master/README.md).
+
+2. Build Livox ROS Driver2:  
+   Follow the instructions provided in the [Livox ROS Driver2 guide](https://github.com/Livox-SDK/livox_ros_driver2/blob/master/README.md).
+   
+3. Clone the repository:
     ```bash
     git clone https://github.com/your-username/maviss.git
     cd maviss
     ```
-
-2. Install dependencies:
+4. Install dependencies:
     ```bash
     sudo apt update && sudo apt install -y ros-${ROS_DISTRO}-ros-base
     rosdep install --from-paths src --ignore-src -r -y
     ```
-3. Build the workspace:
+5. Build the workspace:
     ```bash
     colcon build
     source install/setup.bash
