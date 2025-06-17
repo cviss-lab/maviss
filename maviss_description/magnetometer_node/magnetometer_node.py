@@ -42,22 +42,24 @@ class CompassNode(Node):
         if heading_deg < 0:
             heading_deg += 360.0
 
-        # Publish heading
-        heading_msg = Float32()
-        heading_msg.data = heading_deg
-        self.heading_pub.publish(heading_msg)
+        # Only publish heading if there are subscribers
+        if self.heading_pub.get_subscription_count() > 0:
+            heading_msg = Float32()
+            heading_msg.data = heading_deg
+            self.heading_pub.publish(heading_msg)
 
-        # Optionally, publish the full MagneticField message as well
-        mag_msg = MagneticField()
-        mag_msg.header = msg.header
-        mag_msg.header.frame_id = 'base_link'
-        mag_msg.magnetic_field.x = float(mx)
-        mag_msg.magnetic_field.y = float(my)
-        mag_msg.magnetic_field.z = float(mz)
-        self.mag_pub.publish(mag_msg)
+        # Only publish MagneticField if there are subscribers
+        if self.mag_pub.get_subscription_count() > 0:
+            mag_msg = MagneticField()
+            mag_msg.header = msg.header
+            mag_msg.header.frame_id = 'base_link'
+            mag_msg.magnetic_field.x = float(mx)
+            mag_msg.magnetic_field.y = float(my)
+            mag_msg.magnetic_field.z = float(mz)
+            self.mag_pub.publish(mag_msg)
 
         # Log heading for debug
-        self.get_logger().info(f"Compass heading (deg): {heading_deg:.2f}")
+        #self.get_logger().info(f"Compass heading (deg): {heading_deg:.2f}")
 
     @staticmethod
     def quaternion_to_rotation_matrix(q):

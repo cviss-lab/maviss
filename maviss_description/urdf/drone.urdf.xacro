@@ -194,40 +194,10 @@
     </sensor>
   </gazebo>
   
- <gazebo reference="lidar_link">
-  <sensor name="lidar" type="ray">
-    <pose>0 0 0 0 0 0</pose>
-    <visualize>false</visualize>
-    <update_rate>20</update_rate>
-    <ray>
-      <scan>
-        <horizontal>
-          <samples>720</samples>
-          <resolution>1</resolution>
-          <min_angle>-3.14159</min_angle>
-          <max_angle>3.14159</max_angle>
-        </horizontal>
-        <vertical>
-          <samples>16</samples>        
-          <resolution>1</resolution>
-          <min_angle>-0.2618</min_angle> 
-          <max_angle>0.2618</max_angle>  
-        </vertical>
-      </scan>
-      <range>
-        <min>0.10</min>
-        <max>30.0</max>
-        <resolution>0.01</resolution>
-      </range>
-    </ray>
-    <plugin name="gazebo_ros_laser_controller" filename="libgazebo_ros_ray_sensor.so">
-      <ros>
-        <namespace>lidar</namespace>
-        <remapping>~/out:=~/points</remapping>
-      </ros>
-      <frame_name>lidar_link</frame_name>
-      <output_type>sensor_msgs/PointCloud2</output_type>
-    </plugin>
-  </sensor>
- </gazebo>
+  <!--livox_lidar-->
+  <xacro:include filename="$(find ros2_livox_simulation)/urdf/mid360.xacro" />
+  <xacro:mid360 name="livox" parent="base_link" topic="mid360">
+  <origin xyz="0 0 0.025" rpy="0 0 0"/>
+  </xacro:mid360>
+  
 </robot>
