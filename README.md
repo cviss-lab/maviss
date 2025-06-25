@@ -64,6 +64,7 @@ maviss/
    ```   
 6. Install dependencies:
     ```bash
+    cd 'path/to/your_ws/'
     sudo apt update && sudo apt install -y ros-${ROS_DISTRO}-ros-base
     rosdep install --from-paths src --ignore-src -r -y
     ```
