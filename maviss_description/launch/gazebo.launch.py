@@ -64,8 +64,7 @@ def generate_launch_description():
         package='demo_nodes_cpp',
         executable='parameter_blackboard',
         name='parameter_blackboard',
-        # namespace='laserMapping',
-        parameters=[camera_params_file,],
+        parameters=[camera_params_file],
         output='screen'
     )
         
