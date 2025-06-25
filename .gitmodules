@@ -2,3 +2,7 @@
 	path = maviss_description/maviss
 	url = git@github.com:cviss-lab/maviss.git
 	branch = dev/maviss_description
+[submodule "FAST-LIVO2"]
+	path = FAST-LIVO2
+	url = git@github.com:cviss-lab/FAST-LIVO2.git
+	branch = humble
