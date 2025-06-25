@@ -55,10 +55,10 @@ maviss/
 4. Clone the repository:
     ```bash
     git clone git clone --recurse-submodules -b dev/maviss_description https://github.com/your-username/maviss.git
-    cd maviss
     ```
 5. Build the Livox ROS Driver2  in '[work_space]/src/livox_ros_driver2/' folder
    ```bash
+   cd livox_ros_driver2
    source /opt/ros/humble/setup.sh
    ./build.sh humble
    ```   
