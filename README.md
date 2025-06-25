@@ -35,23 +35,39 @@ maviss/
 
 
 ## Installation
-1. Build Livox-SDK2:  
-   Follow the instructions provided in the [Livox-SDK2 guide](https://github.com/Livox-SDK/Livox-SDK2/blob/master/README.md).
-
-2. Build Livox ROS Driver2:  
-   Follow the instructions provided in the [Livox ROS Driver2 guide](https://github.com/Livox-SDK/livox_ros_driver2/blob/master/README.md).
-   
-3. Clone the repository:
+1. Build Livox-SDK2 in '[work_space]/src/' folder
     ```bash
-    git clone https://github.com/your-username/maviss.git
+    git clone https://github.com/Livox-SDK/Livox-SDK2.git
+    cd ./Livox-SDK2/
+    mkdir build
+    cd build
+    cmake .. && make -j
+    sudo make install
+    ```
+2. Clone the Livox ROS Driver2 in '[work_space]/src/' folder
+   ```bash
+   git clone https://github.com/Livox-SDK/livox_ros_driver2.git
+   ```
+3. Build the Livox ROS Driver2 
+   ```bash
+   source /opt/ros/humble/setup.sh
+   ./build.sh humble
+   ```   
+4. Install Sophus
+    ```bash
+    sudo apt install ros-$ROS_DISTRO-sophus
+    ```
+5. Clone the repository:
+    ```bash
+    git clone --recurse-submodules https://github.com/your-username/maviss.git
     cd maviss
     ```
-4. Install dependencies:
+6. Install dependencies:
     ```bash
     sudo apt update && sudo apt install -y ros-${ROS_DISTRO}-ros-base
     rosdep install --from-paths src --ignore-src -r -y
     ```
-5. Build the workspace:
+7. Build the workspace:
     ```bash
     colcon build
     source install/setup.bash
