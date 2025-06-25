@@ -1,0 +1,4 @@
+[submodule "maviss_description/maviss"]
+	path = maviss_description/maviss
+	url = git@github.com:cviss-lab/maviss.git
+	branch = dev/maviss_description
