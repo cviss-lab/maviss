@@ -48,20 +48,20 @@ maviss/
    ```bash
    git clone https://github.com/Livox-SDK/livox_ros_driver2.git
    ```
-3. Build the Livox ROS Driver2 
-   ```bash
-   source /opt/ros/humble/setup.sh
-   ./build.sh humble
-   ```   
-4. Install Sophus
+3. Install Sophus
     ```bash
     sudo apt install ros-$ROS_DISTRO-sophus
     ```
-5. Clone the repository:
+4. Clone the repository:
     ```bash
     git clone --recurse-submodules https://github.com/your-username/maviss.git
     cd maviss
     ```
+5. Build the Livox ROS Driver2  in '[work_space]/src/livox_ros_driver2/' folder
+   ```bash
+   source /opt/ros/humble/setup.sh
+   ./build.sh humble
+   ```   
 6. Install dependencies:
     ```bash
     sudo apt update && sudo apt install -y ros-${ROS_DISTRO}-ros-base
