@@ -56,18 +56,18 @@ maviss/
     ```bash
     git clone git clone --recurse-submodules -b dev/maviss_description https://github.com/your-username/maviss.git
     ```
-5. Build the Livox ROS Driver2  in '[work_space]/src/livox_ros_driver2/' folder
-   ```bash
-   cd livox_ros_driver2
-   source /opt/ros/humble/setup.sh
-   ./build.sh humble
-   ```   
-6. Install dependencies:
+5. Install dependencies:
     ```bash
     cd 'path/to/your_ws/'
     sudo apt update && sudo apt install -y ros-${ROS_DISTRO}-ros-base
     rosdep install --from-paths src --ignore-src -r -y
-    ```
+    ```        
+6. Build the Livox ROS Driver2  in '[work_space]/src/livox_ros_driver2/' folder
+   ```bash
+   cd livox_ros_driver2
+   source /opt/ros/humble/setup.sh
+   ./build.sh humble
+   ```  
 7. Build the workspace:
     ```bash
     colcon build
