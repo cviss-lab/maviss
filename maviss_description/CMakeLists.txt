@@ -15,6 +15,8 @@ find_package(gazebo_plugins REQUIRED)
 find_package(gazebo_dev REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(mavros REQUIRED)
+find_package(mavros_msgs REQUIRED)
 
 include_directories(${catkin_INCLUDE_DIRS}
                     ${GAZEBO_INCLUDE_DIRS}

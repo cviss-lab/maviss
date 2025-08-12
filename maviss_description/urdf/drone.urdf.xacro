@@ -5,7 +5,7 @@
     
     <!-- Camera Properties -->
     <xacro:property name="fov_wide" value="1.111701"/>      <!-- 63.7 degrees -->
-  
+   
   <!--Define links and joints-->
   <link name="base_footprint"/>
   <joint name="base_footprint_joint" type="fixed">
@@ -21,13 +21,13 @@
       <inertia ixx="0.0005" ixy="0" ixz="0" iyy="0.0005" iyz="0" izz="0.0005"/>
     </inertial>
     <collision name="drone_collision">
-      <origin rpy="0 0 0" xyz="0   0   0.04"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="file://$(find maviss_description)/meshes/yunque-M.dae"/>
       </geometry>
     </collision>
     <visual name="drone_visual">  
-      <origin rpy="0 0 0" xyz="0   0   0.04"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="file://$(find maviss_description)/meshes/yunque-M.dae"/>
       </geometry>
@@ -38,12 +38,12 @@
     <visual name="lidar_visual">  
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <box size = "0.02 0.02 0.02"/>
+        <box size = "0.0001 0.0001 0.0001"/>
       </geometry>
     </visual>
   </link>
   <joint name="lidar_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <origin rpy="0 0 0" xyz="0.0 0.0 0.3"/>
     <parent link="base_link"/>
     <child link="lidar_link"/>
   </joint>
@@ -102,7 +102,7 @@
         <noise>
           <type>gaussian</type>
           <rate>
-            <mean> 0 </mean>r
+            <mean> 0 </mean>
             <stddev> 0.01 </stddev>
           </rate>
           <accel>
@@ -124,9 +124,9 @@
   <!--Cameras-->
   <!--Front Camera-->
   <gazebo reference="front_cam">
-    <sensor name="front_camera" type="depth">
+    <sensor name="front_camera" type="camera">
       <always_on>1</always_on>
-      <visualize>1</visualize>
+      <visualize>0</visualize>
       <update_rate>30.0</update_rate>
       <camera>
         <horizontal_fov>${fov_wide}</horizontal_fov>
@@ -155,7 +155,7 @@
   <gazebo reference="bottom_cam">
     <sensor name="down_camera" type="camera">
       <always_on>1</always_on>
-      <visualize>1</visualize>
+      <visualize>0</visualize>
       <update_rate>30.0</update_rate>
       <camera>
         <horizontal_fov>${fov_wide}</horizontal_fov>
@@ -196,8 +196,7 @@
   
   <!--livox_lidar-->
   <xacro:include filename="$(find ros2_livox_simulation)/urdf/mid360.xacro" />
-  <xacro:mid360 name="livox" parent="base_link" topic="mid360">
-  <origin xyz="0 0 0.025" rpy="0 0 0"/>
+  <xacro:mid360 name="livox" parent="base_link" topic="livox/lidar">
+  <origin xyz="0 0 0" rpy="0 0 0"/>
   </xacro:mid360>
-  
 </robot>

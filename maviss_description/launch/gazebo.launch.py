@@ -1,90 +1,70 @@
-import os
-from launch_ros.actions import Node
 from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, ExecuteProcess
 from launch.substitutions import Command, LaunchConfiguration
-from launch.actions import DeclareLaunchArgument, ExecuteProcess
 from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch_ros.actions import Node, SetParameter
 from ament_index_python.packages import get_package_share_directory
+import os
 
 def generate_launch_description():
- 
-    # Find paths
-    config_file_dir = os.path.join(get_package_share_directory("fast_livo"), "config")  
-    xacro_file = get_package_share_directory('maviss_description') + '/urdf/drone.urdf.xacro'
-    
-    # Load parameters
-    avia_config_cmd = os.path.join(config_file_dir, "avia.yaml")
-    camera_config_cmd = os.path.join(config_file_dir, "camera_pinhole.yaml")  
-    
-    # FAST-LIVO2 configuration
-    avia_config_arg = DeclareLaunchArgument(
-        'avia_params_file',
-        default_value=avia_config_cmd,
-        description='Full path to the ROS2 parameters file to use for fast_livo2 nodes',
-    )
- 
-    camera_config_arg = DeclareLaunchArgument(
-        'camera_params_file',
-        default_value=camera_config_cmd,
-        description='Full path to the ROS2 parameters file to use for vikit_ros nodes',
-    )
-   
-    avia_params_file = LaunchConfiguration('avia_params_file')
-    camera_params_file = LaunchConfiguration('camera_params_file')
-    
-    # Robot State Publisher 
-    robot_state_publisher = Node(package    ='robot_state_publisher',
-                                 executable ='robot_state_publisher',
-                                 name       ='robot_state_publisher',
-                                 output     ='both',
-                                 parameters =[{'robot_description': Command(['xacro', ' ', xacro_file])           
-                                }])
+    pkg_fastlivo = get_package_share_directory('fast_livo')
+    pkg_description = get_package_share_directory('maviss_description')
+    pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
 
-    # Spawn the robot in Gazebo
-    spawn_entity_robot = Node(package     ='gazebo_ros', 
-                              executable  ='spawn_entity.py', 
-                              arguments   = ['-entity', 'maviss_description', '-topic', 'robot_description'],
-                              output      ='screen')
-                              
-    # Gazebo environment
-    world_file_name = 'default.world'
-    world = os.path.join(get_package_share_directory('maviss_description'), 'world', world_file_name)
-    gazebo_node = ExecuteProcess(cmd=['gazebo', '--verbose', world,'-s', 'libgazebo_ros_factory.so'], output='screen')
-        
-    # Magnetometer node
-    magnetometer_node = Node(
-        package='maviss_description', 
-        executable='magnetometer_node.py', 
-        name='magnetometer_node',
-        output='screen'
-    )
+    # Paths
+    avia_yaml = os.path.join(pkg_fastlivo, 'config', 'avia.yaml')
+    camera_yaml = os.path.join(pkg_fastlivo, 'config', 'camera_pinhole.yaml')
+    xacro_file = os.path.join(pkg_description, 'urdf', 'drone.urdf.xacro')
+    world_file = os.path.join(pkg_description, 'world', 'default.world')
 
-    # Use parameter_blackboard as global parameters server and load camera params
-    camera_launch = Node(
-        package='demo_nodes_cpp',
-        executable='parameter_blackboard',
-        name='parameter_blackboard',
-        parameters=[camera_params_file],
-        output='screen'
-    )
-        
-    # Fastlivo mapping node
-    fast_livo2_launch = Node(
-        package='fast_livo',
-        executable='fastlivo_mapping',
-        name='laserMapping',
-        parameters=[avia_params_file],
-        output='screen'   
-    ) 
-        
     return LaunchDescription([
-        avia_config_arg,
-        camera_config_arg,
-        robot_state_publisher,
-        spawn_entity_robot,
-        gazebo_node,
-        magnetometer_node,
-        camera_launch,
-        fast_livo2_launch        
-        ])
+        # Ensure all nodes use /clock
+        SetParameter(name='use_sim_time', value=True),
         
+        # FAST-LIVO2 parameter args
+        DeclareLaunchArgument('avia_params_file',
+            default_value=avia_yaml),
+        DeclareLaunchArgument('camera_params_file',
+            default_value=camera_yaml),
+
+        # 1) Start Gazebo with ROS 2 integration
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(
+                os.path.join(pkg_gazebo_ros, 'launch', 'gazebo.launch.py')),
+            launch_arguments={'world': world_file, 'verbose': 'true'}.items(),
+        ),
+
+        # 2) Publish URDF to /robot_description
+        Node(
+            package='robot_state_publisher', executable='robot_state_publisher',
+            parameters=[{
+                'robot_description': Command(
+                    ['xacro ', xacro_file])
+            }],
+            output='screen'
+        ),
+
+        # 3) Spawn robot entity
+        Node(
+            package='gazebo_ros', executable='spawn_entity.py',
+            arguments=['-entity', 'maviss_drone', '-topic', 'robot_description'],
+            output='screen'
+        ),
+
+        # 4) Load camera intrinsics into vikit
+        Node(
+            package='demo_nodes_cpp', executable='parameter_blackboard',
+            name='parameter_blackboard',
+            parameters=[LaunchConfiguration('camera_params_file')],
+            output='screen'
+        ),
+
+        # 5) Launch FAST-LIVO2 mapping node
+        Node(
+            package='fast_livo', executable='fastlivo_mapping',
+            name='laserMapping',
+            parameters=[LaunchConfiguration('avia_params_file')],
+            output='screen'
+        ),
+    ])
+
