@@ -34,20 +34,6 @@
     </visual>
   </link>
 
-  <link name="lidar_link">
-    <visual name="lidar_visual">  
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <box size = "0.0001 0.0001 0.0001"/>
-      </geometry>
-    </visual>
-  </link>
-  <joint name="lidar_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0.0 0.0 0.3"/>
-    <parent link="base_link"/>
-    <child link="lidar_link"/>
-  </joint>
-
   <link name="front_cam">
     <visual name="front_cam_visual">  
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -197,6 +183,6 @@
   <!--livox_lidar-->
   <xacro:include filename="$(find ros2_livox_simulation)/urdf/mid360.xacro" />
   <xacro:mid360 name="livox" parent="base_link" topic="livox/lidar">
-  <origin xyz="0 0 0" rpy="0 0 0"/>
+  <origin xyz="0 0 0.3" rpy="${M_PI/2} 0 ${M_PI/2}"/>
   </xacro:mid360>
 </robot>
