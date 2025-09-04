@@ -48,7 +48,7 @@ The power distribution ensures stable supply to both flight-critical and percept
 - **Jetson Orin NX**: powered by XT converter with 12V BEC, handling LiDAR & perception stack  
 - **SIYI Air Unit & MK32**: UART + SBUS control, powered through dedicated 12V BEC    
 
-![Wiring Diagram](../_static/mav_1.jpg)
+![Wiring Diagram](../_static/mav_1.png)
 
 ---
 
