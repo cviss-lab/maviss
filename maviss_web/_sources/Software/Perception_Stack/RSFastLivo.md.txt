@@ -1,5 +1,4 @@
 # RSFastLivo
-==========
 
 The **RSFastLivo** module integrates the RoboSense AC1 with the 
 Fast-LIVO-based SLAM framework. It enables real-time LiDAR odometry and mapping, 

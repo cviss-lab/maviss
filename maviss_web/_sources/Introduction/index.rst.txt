@@ -4,7 +4,7 @@ Introduction
 .. raw:: html
 
    <p align="center">
-     <img src="../_static/maviss_drone_lab.jpg" alt="MAVISS Drone in Lab" style="max-width: 500px; height: auto;">
+     <img src="../_static/mav_lab.jpg" alt="MAVISS Drone in Lab" style="max-width: 500px; height: auto;">
    </p>
 
 **MAVISS** (**Modular Aerial Vehicle with Intelligent Sensor Systems**) is a custom-built, modular, and highly adaptable aerial platform developed by the CVISS Lab for advanced inspection, mapping, and autonomous navigation applications.
@@ -54,7 +54,7 @@ To overcome these constraints, MAVISS provides:
 .. raw:: html
 
    <p align="center">
-     <img src="../_static/maviss_rooftop_test.jpg" alt="MAVISS Drone Rooftop Test" style="max-width: 500px; height: auto;">
+     <img src="../_static/mav_test.jpg" alt="MAVISS Drone Rooftop Test" style="max-width: 500px; height: auto;">
    </p>
 
 ----
