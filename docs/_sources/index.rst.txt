@@ -4,7 +4,7 @@ MAVISS
 .. raw:: html
 
    <p align="center">
-     <img src="_static/mav_field.jpg" alt="MAVISS Drone" style="max-width: 340px; height: auto;">
+     <img src="../_static/mav_field.jpg" alt="MAVISS Drone" style="max-width: 340px; height: auto;">
    </p>
 
 **MAVISS** (Modular Aerial Vehicle with Intelligent Sensor Systems) is a modular and intelligent drone platform focused on:
