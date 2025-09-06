@@ -1,2 +1,0 @@
-# Software (BB + Livox)
-
